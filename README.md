@@ -47,5 +47,7 @@ Badges are awesome. At a glance, they can tell somebody inspecting your code wha
 Every line of code _must_ be tested and attacked at as high a level of coverage as we can possibly hit. Each bug is something that can be exploited, and any failure of our systems can be a life not saved right now. Features are okay being slow to move in interest of them moving forward safely. Development Security, or DevSecOps, covers much more than just the code itself. Security is a wholistic endeavour and always evolving. Reddit's [/r/devops](https://reddit.com/r/devops/) is a reasonable place to start.
 
 ---
-* [Access Control](./chaos-control.md)
+
+### [Access Control](./chaos-control.md)
+
 We're all human. Humans are nice, and so often well meaning. When it comes down to it, we just aren't trustworthy in certain situations. Development Operations is one such environment. Access controls and rights must not rely on policies or enforcement by any means other than proper code and testing.

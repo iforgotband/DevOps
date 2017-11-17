@@ -1,7 +1,5 @@
-Why use and What is Continuous Integration?
-===========================================
+# Why use and What is Continuous Integration?
 
----
 Using a system like Git allows us to review code before it's
 committed and deployed. Along with the benefits, which are
 huge, this introduces a problem. Integration and testing coverage
@@ -23,20 +21,3 @@ measurably reduces the expense and hours used to fix bugs. The risk
 of introducing a breaking bug into a mission critical system
 is also greatly reduced with the check, build, test, deploy method
 of continuous integration.
-
-Tools for Integration
-=====================
-
----
-[Github](https://github.com/)
-Obviously, if you're in this far you know what github is. Github
-has a lot of great documentation, and it's even fun to toy with.
-Explore it, learn it backwards and upside down in theory but
-avoid memorizing specific syntax too much - it's harder to un-
-learn than it is to look something up. More likely accurate,
-too!
-
-We use Github to house our source repositories, which then use
-webhooks and other techniques to impliment CI neatly.
-
----
