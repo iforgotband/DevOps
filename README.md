@@ -23,7 +23,7 @@ Badges are awesome. At a glance, they can tell somebody inspecting your code wha
 
 # Development Security Operations (DevSecOps)
 
-* [Security](./dev-op-sec.md)
+* [Security](./dev-sec-ops.md)
 Every line of code _must_ be tested and attacked at as high a level of coverage as we can possibly hit. Each bug is something that can be exploited, and any failure of our systems can be a life not saved right now. Features are okay being slow to move in interest of them moving forward safely. Development Security, or DevSecOps, covers much more than just the code itself. Security is a wholistic endeavour and always evolving. Reddit's [/r/devops](https://reddit.com/r/devops/) is a reasonable place to start.
 
 * [Access Control](./chaos-control.md)
