@@ -1,23 +1,42 @@
 # Tools in the Kit
 
-### [Docker](https://docker.io)
+### [Terraform](https://www.terraform.io/intro/index.html)
 
-#### The Basics (_Very Basic_)
+#### Infrastructure as Code
+
+Infrastructure is described using a high-level configuration syntax. This allows a blueprint of your datacenter to be versioned and treated as you would any other code. Additionally, infrastructure can be shared and re-used.
+»
+
+#### Execution Plans
+
+Terraform has a "planning" step where it generates an execution plan. The execution plan shows what Terraform will do when you call apply. This lets you avoid any surprises when Terraform manipulates infrastructure.
+»
+
+#### Resource Graph
+
+Terraform builds a graph of all your resources, and parallelizes the creation and modification of any non-dependent resources. Because of this, Terraform builds infrastructure as efficiently as possible, and operators get insight into dependencies in their infrastructure.
+»
+
+#### Change Automation
+
+Complex changesets can be applied to your infrastructure with minimal human interaction. With the previously mentioned execution plan and resource graph, you know exactly what Terraform will change and in what order, avoiding many possible human errors.
+
+### [Docker](https://docker.io) and [Kubler]()
 
 We can use [Kubler]() to build a Docker image, in a relatively
 simple set of commands. In the simplest possible way:
 
-`git clone https://github.com/mysolace/kubler.git
-`cd kubler
-`export PATH=$PATH:$(pwd)/bin
-`cd dock; git clone https://github.com/mysolace/kubler-images ctl-dev
-`kubler build ctl-dev/0001-php-symf-node-socket
+`git clone https://github.com/mysolace/kubler.git`
+`cd kubler`
+`export PATH=$PATH:$(pwd)/bin`
+`cd dock; git clone https://github.com/mysolace/kubler-images ctl-dev`
+`kubler build ctl-dev/0001-php-symf-node-socket`
 
 While we could easily use an image from Docker Hub, they come with
 some serious caveats we'd like to avoid. Many of the images are a closed blob, or has too much bloat. Beyond that, they are subject
 to rot.
 
-## Rotten Bloat
+#### Rotten Bloat
 
 Needing to upgrade and patch a system after you've loaded
 an image defeats much of the purpose of having a clean, reproducible
@@ -53,20 +72,22 @@ production environment.
 > quick look at the configuration of its user, entrypoint, and cmd
 > values.
 
-     docker inspect nginx | jq \
-     '{"User": .[].Config.User, "Entrypoint": .[].Config.Entrypoint, "Cmd": .[].Config.Cmd }'`
-
-     {
-      "User": "",
-      "Entrypoint": null,
-      "Cmd": [
-        "nginx",
-        "-g",
+```language-javascript
+  [docker inspect nginx | jq '{"User": .[].Config.User, "Entrypoint": .[].Config.Entrypoint, "Cmd": .[].Config.Cmd }'``
+ {
+  "User": "",
+  "Entrypoint": null,
+    "Cmd": [
+      "nginx",
+      "-g",
       "daemon off;"
-      ]
-     }
+    ]
+  }]
+```
 
-If the User is “”, then the default user ‘root’ is used.
+
+
+If the User is "", then root is used by default.
 
 Alternatively, you can just spin it up and have a look, but then you are executing arbitrary code from the Internet as root. Try docker run --rm -it some/image /bin/sh and see if you are root. If the entrypoint is overwritten you may need docker run --rm -it --entrypoint /bin/sh another/image (assuming /bin/sh exists inside the image, and is safe to run).
 
