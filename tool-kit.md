@@ -33,24 +33,38 @@ lazy. While this has gotten much better, it's still advantageous to
 roll our own. People do still build new images on various web sources
 from Debian/Ubuntu - it's easier, when it comes to it. The result is a need for hacks and patches just to build.
 
-Most images you find on Docker Hub have not been hardened. Typically, they run the application as root. This is despite the documentation stating that root in Docker is equivalent to root on the host.
+From a security standpoint, using the geeric images available in
+Docker's repositories are at a disadvantage for not having been
+hardened. Likely, the application will be run with rooth priveledge,
+even though Docker's root permissions are the same as a host's
+root. If you're opting to use a pre-rolled application from Docker
+Hub, it's prudent to go over its source. If there's no simple way to
+accomplish that check, the image is _not_ a good choice.
 
-So, if you can find the application you want on Docker Hub, and you can find its source, you can check the Dockerfile out to see if they run as a user or root. This is assuming the binary image was really built using that source Dockerfile, which is hard to verify.
+As an example, the official Nginx docker image runs as root. That
+image has no interface outside of the http server with those
+permissions. There are a number of reasons this could be, but
+none of them excuse seeing root where it doesn't belong in a
+production environment.
 
-The official Nginx image is one example of an image that runs as root. The Dockerfile isn’t linked on Docker Hub, but it can be found. There’s no USER instruction, so by default it is running the web server as root. This is presumably so that it can listen on port 80 inside the container. However, typically ports are mapped, so this isn’t really necessary.
-Quickly Inspecting an Image
+> #### Docker Image Inspection
+>
+> If you insist on using a Docker image off the shelf, take a
+> quick look at the configuration of its user, entrypoint, and cmd
+> values.
 
-To quickly inspect an image, have a look at it’s config, in particular it’s user, entrypoint and cmd settings. You can use this command: docker inspect nginx | jq '{"User": .[].Config.User, "Entrypoint": .[].Config.Entrypoint, "Cmd": .[].Config.Cmd }'
+     docker inspect nginx | jq \
+     '{"User": .[].Config.User, "Entrypoint": .[].Config.Entrypoint, "Cmd": .[].Config.Cmd }'`
 
-{
-  "User": "",
-  "Entrypoint": null,
-  "Cmd": [
-    "nginx",
-    "-g",
-    "daemon off;"
-  ]
-}
+     {
+      "User": "",
+      "Entrypoint": null,
+      "Cmd": [
+        "nginx",
+        "-g",
+      "daemon off;"
+      ]
+     }
 
 If the User is “”, then the default user ‘root’ is used.
 

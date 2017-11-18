@@ -75,4 +75,78 @@ We then need to write an adapter to implement the interfaces
 specific to PostgreSQL and drop it in place. The separation of
 the three building blocks makes this possible.
 
+### Contol Inversion (Power Trip!)
 
+Woth getting into is the idea that the adapter depends upon
+a matching tool, and a matching port. Our application logic
+depends on the port alone, which is defined in such a way as
+to fit the application and not be dependant on any particular
+adaptor or tool.
+
+The implication of this is an inversion of the general control
+principle:
+
+`UX => Application Core <= Infrastructure`
+
+This means that a port must be written to the needs of the
+application core itself, and not a re-implimentation of
+the particular tool's API.
+
+### Application Layer (of an [onion](https://herbertograca.com/2017/09/21/onion-architecture/))
+
+For each use case being written to, there is a process that
+is triggered in the core by a UX. An app today could likely 
+employ an app as a UX, as well as a web UX. There's also
+probably another UX to be used by Administration, another
+CLI, an API, or whatever else they may be. A UX should be
+targeted solely for the purpose it serves - a UX.
+
+The Application Layer contains services and their appropriate
+interfaces, naturally. It also covers ports and adapters.
+The original documents use the fine example of a query bus.
+The application layer in that case holds the handlers for
+the recieved queries. 
+
+Let's look at a service or a handler. Handlers hold logic
+to use a process. They (often) will use a repository to
+locate something, and ask it to do some sort of logic, 
+and then persist those entries in the repository to save 
+what changed persistantly.
+
+Command handlers can be use to contain the actual logic for
+the use case of interest, or they can be used more like 
+a cable between audio equipment simply triggering what's
+done in the applicationn service. Either method can be used
+in different situations. 
+
+You can ask some questions to figure out which is right. 
+Is there already a service in place being added to? Does 
+what's being added allow you to use just any method to 
+handle it, or does it require its own classes?
+
+In the application layer you will also find application 
+Event Triggers. Events are a representation of the 
+eventual outcome of a given use case. They trigger the 
+effects from the cause of the case itself. If a notification
+or SMS, email or what have you needs sending, it's
+triggered, by the event trigger.
+
+A use case you might see is a chain of use cases in different, 
+interconnected appications. The chaining together can be 
+made significantly more straight-forward in this approach.
+
+### Domain Layer
+
+Deeper into our onion of an application, we find our domain 
+layer. In this layer we find the application's data as well
+as the logic that's used to digest and manipulate that data.
+Because of the explicit architecture philosophy, the data 
+and logic are specific to the domain and entirely independent
+and agnostic to the application layer. It has no awareness 
+of the application layer at all, by design. A _strict_ form
+of modular designs.
+
+#### Domain Services
+
+Domain layer logic can be complex and work with multiple 
+potentially very different outside entities.
