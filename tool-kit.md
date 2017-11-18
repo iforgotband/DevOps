@@ -26,11 +26,15 @@ Complex changesets can be applied to your infrastructure with minimal human inte
 We can use [Kubler]() to build a Docker image, in a relatively
 simple set of commands. In the simplest possible way:
 
-`git clone https://github.com/mysolace/kubler.git`
-`cd kubler`
-`export PATH=$PATH:$(pwd)/bin`
-`cd dock; git clone https://github.com/mysolace/kubler-images ctl-dev`
-`kubler build ctl-dev/0001-php-symf-node-socket`
+```language-bash
+  [
+git clone https://github.com/mysolace/kubler.git
+cd kubler
+export PATH=$PATH:$(pwd)/bin
+cd dock; git clone https://github.com/mysolace/kubler-images ctl-dev
+kubler build ctl-dev/0001-php-symf-node-socket
+  ]
+```
 
 While we could easily use an image from Docker Hub, they come with
 some serious caveats we'd like to avoid. Many of the images are a closed blob, or has too much bloat. Beyond that, they are subject
@@ -66,11 +70,11 @@ permissions. There are a number of reasons this could be, but
 none of them excuse seeing root where it doesn't belong in a
 production environment.
 
-> #### Docker Image Inspection
->
-> If you insist on using a Docker image off the shelf, take a
-> quick look at the configuration of its user, entrypoint, and cmd
-> values.
+#### Docker Image Inspection
+
+If you insist on using a Docker image off the shelf, take a
+quick look at the configuration of its user, entrypoint, and cmd
+values.
 
 ```language-javascript
   [docker inspect nginx | jq '{"User": .[].Config.User, "Entrypoint": .[].Config.Entrypoint, "Cmd": .[].Config.Cmd }'``
