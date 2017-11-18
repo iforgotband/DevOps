@@ -26,7 +26,7 @@ Complex changesets can be applied to your infrastructure with minimal human inte
 We can use [Kubler]() to build a Docker image, in a relatively
 simple set of commands. In the simplest possible way:
 
-```language-bash
+```ShellSession
 git clone https://github.com/mysolace/kubler.git
 cd kubler
 export PATH=$PATH:$(pwd)/bin
@@ -74,9 +74,9 @@ If you insist on using a Docker image off the shelf, take a
 quick look at the configuration of its user, entrypoint, and cmd
 values.
 
-```language-javascript
-  docker inspect nginx | jq '{"User": .[].Config.User, "Entrypoint": .[].Config.Entrypoint, "Cmd": .[].Config.Cmd }'``
- {
+```JSON
+docker inspect nginx | jq '{"User": .[].Config.User, "Entrypoint": .[].Config.Entrypoint, "Cmd": .[].Config.Cmd }'``
+{
   "User": "",
   "Entrypoint": null,
     "Cmd": [
@@ -84,7 +84,7 @@ values.
       "-g",
       "daemon off;"
     ]
-  }
+}
 ```
 
 
