@@ -1,5 +1,3 @@
-# Tools in the Kit
-
 ### [Terraform](https://www.terraform.io/intro/index.html)
 
 #### Infrastructure as Code
