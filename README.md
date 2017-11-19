@@ -1,5 +1,9 @@
 # Development Operations (DevOps)
 
+[![Build status](https://ci.appveyor.com/api/projects/status/inacxglh4egpjsh9?svg=true)](https://ci.appveyor.com/project/MySolace/devops)
+
+---
+
 ### [The Right Tools](./tool-kit.md)
 
 Tools are how we do what we do. There are more and less suited tools for every job. Some like to use everything seperately and scripted together in a commandline. Others might work better in some sort of IDE interface. The toolchains and structures used aren't always the latest and greatest, but rather the practical _best_.
