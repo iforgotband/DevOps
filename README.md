@@ -1,5 +1,7 @@
 # Development Operations (DevOps)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/MySolace/DevOps.svg)](https://greenkeeper.io/)
+
 [![Build status](https://ci.appveyor.com/api/projects/status/inacxglh4egpjsh9?svg=true)](https://ci.appveyor.com/project/MySolace/devops)
 
 ---
