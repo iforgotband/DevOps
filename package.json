@@ -4,7 +4,9 @@
   "description": "Development and Security Operations Manuals",
   "main": "README.md",
   "scripts": {
-    "lint-md": "remark ."
+    "lint-md": "remark .",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "remark-config": {
     "plugins": [
@@ -23,6 +25,8 @@
   "homepage": "https://github.com/MySolace/DevOps#readme",
   "dependencies": {
     "remark-cli": "^4.0.0",
-    "remark-preset-lint-recommended": "^3.0.1"
-  }
+    "remark-preset-lint-recommended": "^3.0.1",
+    "snyk": "^1.103.4"
+  },
+  "snyk": true
 }
