@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/MySolace/DevOps#readme",
   "dependencies": {
-    "remark-cli": "^4.0.0",
+    "remark-cli": "^6.0.0",
     "remark-preset-lint-recommended": "^3.0.1"
   }
 }
